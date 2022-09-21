@@ -8,7 +8,8 @@ http.createServer(function (request, response) {
     var file = "." + str.pathname;
     var exten = path.extname(str.pathname);
 
-    
+    // You also need to account for the content type of images.
+    // For a .jpg file, the Content-Type is image/jpeg.
     if (exten === ".html") {
 
         fs.readFile(file, function(err, data) {
