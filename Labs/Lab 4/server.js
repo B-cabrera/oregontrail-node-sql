@@ -2,13 +2,16 @@ var mysql = require('mysql');
 const process = require('process');
 const args = process.argv.slice(2);
 let command = args[0];
+
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
     database: "cmpt221"
 });
+
 var sql = "";
+
 if (command === 'add') {
     console.log('Add record');
     // Make sure there are two additional arguments for name and address
@@ -20,7 +23,7 @@ if (command === 'add') {
     let name = args[1];
     let address = args[2];
     // Build the correct SQL
-    // sql =
+    sql = `INSERT INTO users (name, address) VALUE ("${name}", "${address}")`;
 } else if (command === 'find') {
     // Make sure there is one additional argument for name
     if (args.length < 2) {
@@ -30,7 +33,7 @@ if (command === 'add') {
     }
     console.log("Find record");
     // Code to read parameter and get from DB
-    // sql =
+    sql = `SELECT * FROM users WHERE name LIKE "%${args[1]}%"`;
 } else if (command === 'remove') {
     // Make sure there is one additional argument for name
     if (args.length < 2) {
@@ -40,7 +43,7 @@ if (command === 'add') {
     }
     console.log("Remove record");
     // Code to read parameter and get from DB
-    // sql =
+    sql = `DELETE FROM users WHERE name LIKE "${args[1]}"`;
 } else
     console.log("Invalid command " + command);
 
@@ -49,7 +52,7 @@ con.connect(function (err) {
     console.log("Connected!");
     con.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("result: " + result);
+        console.log("result: " + JSON.stringify(result));
         con.end();
     });
 });
