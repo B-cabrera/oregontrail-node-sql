@@ -1,0 +1,13 @@
+body {
+    background-image: url(/images/grass-big.jpg);
+}
+
+#scores {
+    padding-bottom: 25px;
+    list-style-position: inside;
+    font-size: 30px;
+}
+
+p {
+    color:black;
+}
