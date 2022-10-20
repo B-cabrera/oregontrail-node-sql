@@ -1,5 +1,8 @@
 # Project
 
+## TO-DO (Overall)
+- [ ] Comment and clean up code
+- [ ] Finish and submit
 
 ## TO-DO (Per Page)
 
