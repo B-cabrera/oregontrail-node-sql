@@ -10,7 +10,17 @@ body {
     text-align: center;
     padding-top: 50px;
     font-size: 100px;
-    font-weight: 200;
+    font-weight: 700;
 }
+
+
+.reg-text {
+    font-weight: 400;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    top: 10px;
+}
+
 
 
