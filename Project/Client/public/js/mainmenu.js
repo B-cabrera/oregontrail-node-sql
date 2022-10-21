@@ -1,5 +1,3 @@
-var soundState = true;
-
 
 $(document).ready(function() {
     /*

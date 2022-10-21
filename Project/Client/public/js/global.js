@@ -1,7 +1,9 @@
+var soundState = true;
 
 $(document).ready(function() {
     listenToClickRedirect($("#return-text"), 'mainmenu');
     listenToPressRedirect($("body"), 32, 'mainmenu');
+    
 })
 function listenToClickRedirect(elem, location) {
     elem.click(function() {
