@@ -10,13 +10,13 @@ $(document).ready(function() {
     */
 
     // Listening for key press of the "1" key and redirecting
-    listenToPressRedirect($("body"), 49, 'trail');
+    listenToPressRedirect($("body"), 49, '/trail');
 
     // Listening for key press of the "2" key and redirecting
-    listenToPressRedirect($("body"), 50, 'setup');
+    listenToPressRedirect($("body"), 50, '/setup');
 
     // Listening for key press of the "3" key and redirecting
-    listenToPressRedirect($("body"), 51, 'topten');
+    listenToPressRedirect($("body"), 51, '/topten');
 
     // Listening for key press of the "4" key and toggling Music
     listentoPressAction($("body"), 52, function() {

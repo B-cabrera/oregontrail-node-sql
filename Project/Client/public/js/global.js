@@ -1,5 +1,6 @@
 var soundState = true;
 
+// You should add some comments for reference
 $(document).ready(function() {
     listenToClickRedirect($("#return-text"), 'mainmenu');
     listenToPressRedirect($("body"), 32, 'mainmenu');
