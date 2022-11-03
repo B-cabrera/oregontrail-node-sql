@@ -7,38 +7,56 @@ class TopScore {
 }
 
 
-// SAMPLE VALUES INSIDE ARRAY
+// BEGIN - FILLING TABLES WITH SAMPLE OBJ's
 var scores = [];
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
-const dates = ["11-1", "12-4", "1-10", "5-4", "7-10", "9-18", "10-10", "4-3", "9-18", "3-4"];
+var names = ["James", "Him", "Blake", "Mariah", "Hailey", "Amarri", "Trey", "Josh", "Brenden", "Mark"]
 
-for (var i = 0; i < 10; i++) {
-    const randomCharacter = alphabet[Math.floor(Math.random() * alphabet.length)]
-    const randDate = dates[Math.floor(Math.random() * dates.length)];
-    scores[i] = new TopScore(randomCharacter, randDate, (i+1) * 100);
+function randomDate(start, end) {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
 
-console.log(scores);
+for (var i = 0; i < 10; i++) {
+    const randomCharacter = names[Math.floor(Math.random() * names.length)];
+    const randDate = randomDate(new Date(2012, 0, 1), new Date());
+    scores[i] = new TopScore(randomCharacter, randDate.toDateString(), (i+1) * 100);
+}
 
-$(document).ready(function() {
+// END - FILLING TABLES WITH SAMPLE OBJ'S
 
+// Sorting scores, then adding them to window after it fully loads
+window.addEventListener('load', addScores(scores));
+
+function addScores(points) {
     scores = sortScores(scores);
+    var table = document.querySelector("#scores");
+    
+    scores.forEach(score => {
+        var currentRow = document.createElement("tr");
+        var currentName = document.createElement("td");
+        var currentScore = document.createElement("td");
+        var currentDate = document.createElement("td");
+
+        currentName.textContent = score.name;
+        currentScore.textContent = score.score;
+        currentDate.textContent = score.date;
+
+        currentRow.appendChild(currentName);
+        currentRow.appendChild(currentScore);
+        currentRow.appendChild(currentDate);
+       
 
 
-
-
-    scores.forEach((item) => {
-        var listItem = document.createElement("li");
-        listItem.innerText = `${item.name}  ${item.date}  ${item.score}`;
-        $("#scores").append(listItem);
+        table.appendChild(currentRow);
     });
 
+}
 
 
 
-});
 
 
+
+// Sorts scores array by adding max value in array to new array, returns new array
 function sortScores(pointsList) {
     var sortedList = [];
 
@@ -54,7 +72,7 @@ function sortScores(pointsList) {
     return sortedList;
 }
 
-
+// Finds and returns index of max number in array
 function maxIndex(scoresList) {
     var maximum = 0;
     var index = 0;

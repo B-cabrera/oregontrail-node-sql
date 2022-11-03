@@ -19,5 +19,14 @@ body {
 }
 
 
+.fade-in-text {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.fade {
+    opacity: 1;
+}
+
 
 

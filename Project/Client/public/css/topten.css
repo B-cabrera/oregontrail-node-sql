@@ -11,3 +11,14 @@ body {
 p {
     color:black;
 }
+
+table, tr, td {
+    border: 2px solid;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td {
+    padding: 8px;
+}

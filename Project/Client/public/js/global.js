@@ -2,35 +2,47 @@
 var soundState = true;
 
 // Listening for Clicks and Presses after document is fully loaded
-$(document).ready(function() {
-    listenToClickRedirect($("#return-text"), '/mainmenu');
-    listenToPressRedirect($("body"), 32, '/mainmenu');
-    
-})
+window.onload = (event)  => {
+    var body = document.body;
+    var here = window.location.href.split("/").pop();
+
+
+    if (here != "mainmenu")
+        listenToPressRedirect(body, " ", '/mainmenu');
+
+}
+
+
 
 // listen to clicks on a specific object, then changing page to location
 function listenToClickRedirect(elem, location) {
-    elem.click(function() {
-        window.location = location;
-    });
+    if(elem) {
+        elem.onclick = (event) => {
+            event.preventDefault();
+            window.location = location;
+        }
+    }
 }
 
 // Listen to key press, then changing page to location
-function listenToPressRedirect(elem, keycode, place) {
-    elem.on("keypress", function() {
-        if (event.which === keycode) {
-            event.preventDefault();
+function listenToPressRedirect(elem, key, place) {
+
+    elem.addEventListener('keydown', function() {
+        event.preventDefault();
+        
+        if (event.key === key) {
             window.location = place;
         }
     });
 }
 
 // Listen to key press, then executing function
-function listentoPressAction(elem, keycode, func) {
-    elem.on("keypress", function() {
-        if (event.which === keycode) {
+function listentoPressAction(elem, key, func) {
+    elem.addEventListener('keydown', function() {
+        if (event.key === key) {
             event.preventDefault();
             func();
         }
     });
 }
+

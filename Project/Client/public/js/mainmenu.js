@@ -1,37 +1,27 @@
+var body = document.body;
 
-$(document).ready(function() {
-    /*
-    keycodes {
-        1: 49
-        2: 50
-        3: 51
-        4: 52
-    }
-    */
+// Listening for key press of the "1" key and redirecting
+listenToPressRedirect(body, "1", '/trail')
 
-    // Listening for key press of the "1" key and redirecting
-    listenToPressRedirect($("body"), 49, '/trail');
+// Listening for key press of the "2" key and redirecting
+listenToPressRedirect(body, "2", '/setup');
 
-    // Listening for key press of the "2" key and redirecting
-    listenToPressRedirect($("body"), 50, '/setup');
+// Listening for key press of the "3" key and redirecting
+listenToPressRedirect(body, "3", '/topten');
 
-    // Listening for key press of the "3" key and redirecting
-    listenToPressRedirect($("body"), 51, '/topten');
-
-    // Listening for key press of the "4" key and toggling Music
-    listentoPressAction($("body"), 52, function() {
-        toggleSound();
-    });
-
+// Listening for key press of the "4" key and toggling Music
+listentoPressAction(body, "4", function () {
+    toggleSound();
 });
 
-
+// Toggles sounds and updates sound status text
 function toggleSound(state) {
+    var soundStatus = document.getElementById("sound-status");
 
     soundState = !soundState
 
     if (soundState)
-        $("#sound-status").text("On")
+        soundStatus.textContent = "On";
     else
-        $("#sound-status").text("Off");
+        soundStatus.textContent = "Off";
 }

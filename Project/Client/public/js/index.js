@@ -1,19 +1,15 @@
+// Listening for click for click of returning to menu text
+window.addEventListener('load',listenToClickRedirect(document.querySelector("#return-text"), "/mainmenu"));
 
+// Fading text when window loads
+window.addEventListener('load', fading(document.querySelector(".fade-in-text")));
 
-// Running code in block after doc finishes loading.
-$(document).ready(function() {
-    var textelem= $(".fade-in-text");
-    fading(textelem);
-
-    //listening from space bar text and page.
-    var text = $(".reg-text");
-    var page = $("body");
-});
-
+// function for fading text
 function fading(obj) {
-    obj.fadeToggle(1000, function () {
-        fading(obj);
-    });
+    setInterval(() => {
+        obj.classList.toggle("fade");
+    }, 700);
+
 }
 
 
