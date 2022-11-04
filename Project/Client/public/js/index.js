@@ -1,4 +1,4 @@
-// Listening for click for click of returning to menu text
+// Listening for click of returning to menu text
 window.addEventListener('load',listenToClickRedirect(document.querySelector("#return-text"), "/mainmenu"));
 
 // Fading text when window loads

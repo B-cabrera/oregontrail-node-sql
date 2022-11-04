@@ -2,8 +2,8 @@
 
 ## TO-DO (Overall)
 - [x] Remove Jquery and replace with plain js
-- [ ] Fix changes from feedback of phase 1
-- [ ] Add sound and sound functionality
+- [x] Fix changes from feedback of phase 1
+- [x] Add sound and sound functionality - Ehhh...
 - [ ] (Optional) Make fonts individual by page/location
 - [ ] Comment and clean up code
 - [ ] Finish and submit

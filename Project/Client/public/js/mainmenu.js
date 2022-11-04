@@ -1,5 +1,9 @@
 var body = document.body;
 
+
+window.addEventListener('load', displayStatus);
+
+
 // Listening for key press of the "1" key and redirecting
 listenToPressRedirect(body, "1", '/trail')
 
@@ -17,11 +21,27 @@ listentoPressAction(body, "4", function () {
 // Toggles sounds and updates sound status text
 function toggleSound(state) {
     var soundStatus = document.getElementById("sound-status");
+    var music = document.getElementById("music");
 
     soundState = !soundState
 
-    if (soundState)
+    if (soundState) {
         soundStatus.textContent = "On";
-    else
+        music.play()
+    }
+    else {
         soundStatus.textContent = "Off";
+        music.pause();
+    }
+}
+
+// Displays sound status text
+function displayStatus() {
+    console.log("Displaying");
+    var soundText = document.getElementById("sound-status");
+
+    if (soundState)
+        soundText.textContent = "On";
+    else
+        soundText.textContent = "Off";
 }

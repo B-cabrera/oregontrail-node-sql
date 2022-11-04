@@ -34,5 +34,23 @@ body {
 #return-text {
     text-align: center;
     color: white;
-    font-size: 30px;;
+    font-size: 30px;
+}
+
+#options {
+    padding-bottom: 25px;
+    font-size: 30px;
+    list-style-position: inside;
+}
+
+#option-1, #option-2, #option-3, #option-4 {
+    padding-bottom: 15px;
+}
+
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

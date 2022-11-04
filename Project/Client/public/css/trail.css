@@ -1,3 +1,30 @@
 body {
     background-image: url(/images/grass-big.jpg);
 }
+
+
+img {
+    width: 85vh;
+    border: 10px solid;
+}
+
+
+#info {
+    width: 20vw;
+    border-radius: 10px;
+    background-color: grey;
+}
+
+#mid-page {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.info-text {
+    font-weight: 900;
+    padding-left: 10px;
+}
+
+

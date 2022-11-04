@@ -1,14 +1,16 @@
-// Initializing state of sound to always be true
-var soundState = true;
+// Initializing state of sound to always be false
+var soundState = false;
 
 // Listening for Clicks and Presses after document is fully loaded
 window.onload = (event)  => {
     var body = document.body;
     var here = window.location.href.split("/").pop();
+    var music = document.getElementById("music");
 
 
     if (here != "mainmenu")
         listenToPressRedirect(body, " ", '/mainmenu');
+    
 
 }
 

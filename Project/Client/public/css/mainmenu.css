@@ -2,12 +2,3 @@ body {
     background-image: url(/images/grass-big.jpg);
 }
 
-#options {
-    padding-bottom: 25px;
-    font-size: 30px;
-    list-style-position: inside;
-}
-
-#option-1, #option-2, #option-3, #option-4 {
-    padding-bottom: 15px;
-}
