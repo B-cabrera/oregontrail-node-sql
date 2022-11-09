@@ -13,8 +13,8 @@
 - [ ] Set Up Routing for the models and controllers
 
 ### Models
-- [ ] Create models folder
-- [ ] Add files
+- [x] Create models folder
+- [x] Add files
     - gameData.js
     - terrain.js
     - weather.js
@@ -29,8 +29,8 @@
     
 
 ### Controllers
-- [ ] Create controllers folder
-- [ ] Add files
+- [x] Create controllers folder
+- [x] Add files
     - gameController.js
     - topTenController.js
     - setupController.js
