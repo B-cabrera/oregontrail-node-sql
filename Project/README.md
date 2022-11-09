@@ -20,12 +20,12 @@
     - weather.js
     - topTen.js
     - pace.js
-- [ ] Create gameData object
-- [ ] Create terrain object
-- [ ] Create weather object
-- [ ] Create topTen object
-- [ ] Create Pace object
-- [ ] Create GroupHealth object
+- [x] Create gameData object
+- [x] Create terrain object
+- [x] Create weather object
+- [x] Create topTen object
+- [x] Create Pace object
+- [x] Create GroupHealth object
     
 
 ### Controllers

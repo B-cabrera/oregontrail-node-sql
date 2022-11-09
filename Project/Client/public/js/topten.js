@@ -1,4 +1,4 @@
-class TopScore {
+export class TopScore {
     constructor(who, day, points) {
         this.name = who;
         this.date = day;
