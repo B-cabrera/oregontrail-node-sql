@@ -1,10 +1,20 @@
 const express = require('express' );
+const bodyParser = require('body-parser');
+const gameController = require('./controllers/gameController');
+const setupController = require('./controllers/setupController');
+const topTenController = require('./controllers/topTenController');
 const app = express();
 const port = 1337;
 
-
 app.use(express.static('./Client/public'));
 
+app.use(express.json());
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+// GETS
 app.get('/', (req, res) => {
     res.sendFile('index.html', {root: './Client/views'});
 });
@@ -29,3 +39,37 @@ app.get('/trail', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 }); 
+
+// ROUTES
+app.route('/api/pace/:id')
+.patch(gameController.changePace);
+
+app.route('/api/pace')
+.get(gameController.getPace)
+.delete(gameController.resetPace);
+
+app.route('/api/weather')
+.get(gameController.getWeather)
+.delete(gameController.resetWeather);
+
+app.route('/api/weather/:id')
+.patch(gameController.changeWeather);
+
+app.route('/api/gameData')
+.get(gameController.getGameData);
+
+app.route('/api/topTen')
+.get(topTenController.getTopTen)
+.post(topTenController.addNewScore);
+
+app.route('/api/setup/player/:id')
+.get(setupController.getPlayerInfo);
+
+app.route('/api/setup/player')
+.get(setupController.getPlayerNames);
+
+app.route('/api/setup/profession')
+.post(setupController.setProfession);
+
+app.route('/api/health')
+.get(gameController.getHealth);

@@ -1,5 +1,6 @@
 class Terrain {
 
+    // Terrain has an id, name, num for pace change and health change
     constructor(terrainNum, location, paceEffect, healthEffect) {
         this.id = terrainNum;
         this.terrain = location;
@@ -8,6 +9,7 @@ class Terrain {
     }
 
 
+    // Creates terrain array, all for current game
     createTerrainList() {
         return [
             new Terrain(1, 'Mountains', -20, -5),
@@ -19,3 +21,6 @@ class Terrain {
     }
 }
 
+
+// EXPORTING INSTANCE OF TERRAIN OBJ
+exports.Terrain = new Terrain();

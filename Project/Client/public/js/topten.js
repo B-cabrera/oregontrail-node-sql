@@ -1,11 +1,5 @@
-export class TopScore {
-    constructor(who, day, points) {
-        this.name = who;
-        this.date = day;
-        this.score = points;
-    }
-}
 
+const topScore = require('../../../Server/models/topTen')
 
 // BEGIN - FILLING TABLES WITH SAMPLE OBJ's
 var scores = [];
@@ -18,7 +12,7 @@ function randomDate(start, end) {
 for (var i = 0; i < 10; i++) {
     const randomCharacter = names[Math.floor(Math.random() * names.length)];
     const randDate = randomDate(new Date(2012, 0, 1), new Date());
-    scores[i] = new TopScore(randomCharacter, randDate.toDateString(), (i+1) * 100);
+    scores[i] = topScore.topScore(randomCharacter, randDate.toDateString(), (i+1) * 100);
 }
 
 // END - FILLING TABLES WITH SAMPLE OBJ'S
@@ -50,9 +44,6 @@ function addScores(points) {
     });
 
 }
-
-
-
 
 
 

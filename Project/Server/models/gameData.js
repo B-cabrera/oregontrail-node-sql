@@ -1,24 +1,23 @@
-class gameData {
-    constructor() {
-        var players = [];
-        var totalMoney = calcMoney();
-        var startMonth;
-        var miles;
-        var groupHealth = new GroupHealth();
-        var totalDays;
-        var currentPace;
-        var currentWeather;
-        var currentTerrain;
-        var messages = [];
+const pace = require('./pace');
+const weather = require('./weather');
+const terrain = require('./terrain');
 
+class Player {
+
+    // Player has a name, status (alive or dead), profession, and money
+    constructor(playerName, playerStatus, playerProfession, cash) {
+        this.name = playerName;
+        this.status = playerStatus;
+        this.profession = playerProfession;
+        this.money = cash;
     }
 }
 
-
+// Group Health just has group health number, and method to get chance of death
 class GroupHealth {
 
     constructor(hp) {
-        this.health = hp; 
+        this.health = hp;
     }
 
 
@@ -31,16 +30,55 @@ class GroupHealth {
             return 0.1;
         else if (this.health === 0)
             return 1;
-        
+
     }
 }
 
-class Player {
+// Data for game
+class GameData {
 
-    constructor(playerName, playerStatus, playerProfession, cash) {
-        this.name = playerName;
-        this.status = playerStatus;
-        this.proffession = playerProfession;
-        this.money = cash;
+    /*
+    players: list of players
+    totalMoney: num representing total money group has
+    startMonth: Month game begins on
+    miles: num tracking current miles
+    groupHealth: GroupHealth obj tracking group health
+    totalDays: num tracking days on trail
+    currentPace: var tracking current pace of game, uses Pace obj
+    currentWeather: var tracking current weather of game, uses Weather obj
+    currentTerrain: var tracking current terrain of game, uses Terrain obj
+    messages: array holding game messages
+    */
+
+    constructor() {
+        this.players = [new Player('Brenden', true, 'Him', 2000)];
+        this.totalMoney = this.calcMoney();
+        this.startMonth = 0;
+        this.miles = 0;
+        this.groupHealth = new GroupHealth(100);
+        this.totalDays = 0;
+        this.currentPace = pace.Pace.createPaceList()[0].name;
+        this.currentWeather = weather.Weather.createWeatherList()[0].weather;
+        this.currentTerrain = terrain.Terrain.createTerrainList()[1].terrain;
+        this.messages = [];
+
     }
+
+    // Method that will traverse through player array and add up money
+    calcMoney() {
+        return 0;
+    }
+
 }
+
+// EXPORTING INSTANCE OF OBJ
+var thisGame = new GameData();
+
+exports.gameInfo = thisGame;
+
+
+
+
+
+
+

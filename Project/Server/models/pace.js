@@ -1,5 +1,6 @@
 class Pace {
 
+   // Pace has a name, num of mile change, and num of health change 
     constructor(title, distance, healthEffect) {
         this.name = title;
         this.mileChange = distance;
@@ -8,7 +9,7 @@ class Pace {
 
 
 
-
+    // method creates list of Pace obj's, all for current game
     createPaceList() {
         return [
             new Pace('Steady', 50, -1),
@@ -19,7 +20,5 @@ class Pace {
     }
 }
 
-
-var test = new Pace();
-
-console.log(test.createPaceList());
+// EXPORTING INSTANCE OF PACE OBJ
+exports.Pace = new Pace();

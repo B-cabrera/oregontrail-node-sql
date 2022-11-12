@@ -10,7 +10,7 @@
 
 ## TO-DO 
 
-- [ ] Set Up Routing for the models and controllers
+- [x] Set Up Routing for the models and controllers
 
 ### Models
 - [x] Create models folder
@@ -34,7 +34,7 @@
     - gameController.js
     - topTenController.js
     - setupController.js
-- [ ] Implement methods for each controller.
+- [x] Implement methods for each controller.
 
 
 
