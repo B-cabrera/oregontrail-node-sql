@@ -51,7 +51,7 @@ class GameData {
     */
 
     constructor() {
-        this.players = [new Player('Brenden', true, 'Him', 2000)];
+        this.players = [];
         this.totalMoney = this.calcMoney();
         this.startMonth = 0;
         this.miles = 0;

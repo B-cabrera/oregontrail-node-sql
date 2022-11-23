@@ -73,3 +73,6 @@ app.route('/api/setup/profession')
 
 app.route('/api/health')
 .get(gameController.getHealth);
+
+app.route('/api/setup/screen/:id')
+.get(setupController.getSetupScreen);

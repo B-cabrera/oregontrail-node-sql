@@ -8,7 +8,7 @@ window.onload = (event)  => {
     var music = document.getElementById("music");
 
 
-    if (here != "mainmenu")
+    if (here != "mainmenu" && here != "setup")
         listenToPressRedirect(body, " ", '/mainmenu');
     
 
@@ -29,7 +29,7 @@ function listenToClickRedirect(elem, location) {
 // Listen to key press, then changing page to location
 function listenToPressRedirect(elem, key, place) {
 
-    elem.addEventListener('keydown', function() {
+    elem.addEventListener('keydown', function () {
         event.preventDefault();
         
         if (event.key === key) {
@@ -47,4 +47,6 @@ function listentoPressAction(elem, key, func) {
         }
     });
 }
+
+
 
