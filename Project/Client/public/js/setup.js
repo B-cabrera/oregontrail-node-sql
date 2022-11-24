@@ -42,12 +42,15 @@ function chooseChoice(event) {
 
     if (event.key === "1") {
         sessionStorage.setItem('profession', 'Banker');
+        sessionStorage.setItem('pMoney', 2000);
         isPageDone = true;
     } else if (event.key === "2") {
         sessionStorage.setItem('profession', 'Carpenter');
+        sessionStorage.setItem('pMoney', 1800)
         isPageDone = true;
     } else if (event.key === "3") {
         sessionStorage.setItem('profession', 'Farmer');
+        sessionStorage.setItem('pMoney', 1500)
         isPageDone = true;
     } else if (event.key === "4") {
         // SETUP LATER
@@ -63,12 +66,35 @@ function chooseChoice(event) {
 
     if (isPageDone) {
         sessionStorage.setupPhase = 1;
+
+        // ASYNC call to set profession of player
+        fetch('/api/setup/profession',
+            {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: '{"profession": "' + sessionStorage.getItem('profession') + '"}'
+            }).then(res => {
+                console.log("Profession set!");
+            });
+
+
+        // ASYNC call to set player money
+        fetch('/api/setup/player/money',
+            {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: '{"money": "' + sessionStorage.getItem('pMoney') + '"}'
+            }).then(res => {
+                console.log("Player Money Set !");
+            });
+
         begin();
     }
-    // if (event.key != "/" ) {
-    //     sessionStorage.setupPhase = 1;
-    //     begin();
-    // }
+
 }
 
 function checkForSpaces(text) {
@@ -89,12 +115,24 @@ function getName(event) {
 
             if (pNum > 4) {
                 sessionStorage.setupPhase = 2;
+
+                // Loop for async calls to set player names, using template literal
+                for (let playerID = 0; playerID < 5; playerID++) {
+                    fetch('/api/setup/player/name',
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-type": "application/json; charset=UTF-8"
+                            },
+                            body: `{"playerNum": ${playerID}, "name": "${sessionStorage.getItem(`Player${playerID}`)}"}`
+                        }).then(res => {
+                            console.log(`Player${playerID} Name Set!`);
+                        });
+                }
+
                 begin();
             }
         }
-
-
-
 
 
     }
@@ -103,7 +141,7 @@ function getName(event) {
 function getStartMonth(event) {
     if (event.key === "Enter") {
         var input = document.getElementById("monthInput").value;
-        
+
         // Check for all spaces or no text
         if (!checkForSpaces(input)) {
             document.getElementById("monthInput").value = "";
@@ -111,27 +149,41 @@ function getStartMonth(event) {
             // Make all lowercase and check with month array
             if (months.indexOf(input.trim().toLowerCase()) >= 0) {
                 sessionStorage.setItem('startMonth', input.trim().toLowerCase());
-                
+
                 sessionStorage.setupPhase = 3;
+
+                // ASYNC call to set startMonth
+                fetch('/api/setup/month',
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        },
+                        body: `{"month": "${sessionStorage.getItem('startMonth')}"}`
+                    }).then(res => {
+                        console.log(`Starting Month Name Set!`);
+                    });
+
                 begin();
             }
         }
-         
+
         document.getElementById("monthInputLabel").textContent = "Invalid Month!";
-        
+
 
     }
 }
 
 function begin() {
-    fetch(`/api/setup/screen/${sessionStorage.setupPhase}`).then(res => {
+
+    var fetched = fetch(`/api/setup/screen/${sessionStorage.setupPhase}`).then(res => {
         return res.text();
     }).then(
         data => {
+            console.log("Got data up");
             menu.innerHTML = data;
         }
     );
-
 
     if (sessionStorage.setupPhase == 0) {
         document.body.addEventListener('keydown', chooseChoice, true);
@@ -141,7 +193,22 @@ function begin() {
     } else if (sessionStorage.setupPhase == 2) {
         document.body.removeEventListener('keydown', getName, true);
         document.body.addEventListener('keydown', getStartMonth, true);
-    }
+    } else if (sessionStorage.setupPhase == 3) {
+        document.body.removeEventListener('keydown', getStartMonth, true);
+
+        fetched.then(() => {
+            console.log("Got data down");
+            fetch('/api/setup/player').then((res) => {
+                return res.text()
+            }).then((data) => {
+                console.log("Got data appending");
+                var newtext = data.replace(/[\[\]"]/g, '');
+                console.log(newtext);
+                document.getElementById("names").textContent = "Your group: " + newtext;
+            });
+        })
+
+    };
 
 }
 

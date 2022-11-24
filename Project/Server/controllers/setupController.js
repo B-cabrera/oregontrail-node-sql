@@ -11,7 +11,8 @@ var chooseLeadName = "<label for=\"prompt\" id=\"inputlabel\" >What is your name
 + "<input type=\"text\" id=\"prompt\" />";
 var chooseMonth = "<label for=\"monthInput\" id=\"monthInputLabel\">Enter your preferred starting month</label>"
 + "<input  type=\"text\" id=\"monthInput\" />";
-var summary = "<p>Summary</p>"; 
+var summary = "<p id=\"label\">Summary</p>"
++ "<p id=\"names\"></p>";
 var explanation = "<p id=\"explain\">If you choose Banker you will start off with $2000</p>"
 + "<p id=\"explain\">If you choose Carpenter you will start off with $1800</p>"
 + "<p id=\"explain\">If you choose Farmer you will start off with $1500</p>";
@@ -26,21 +27,15 @@ exports.getSetupScreen = function(req, res) {
 
 // Gets player obj in player array using ID from req, responds with player name and profession
 exports.getPlayerInfo = function(req, res) {
-    var playerInfo = [playerList[req.params.id - 1].name, playerList[req.params.id - 1].profession];
+    var playerInfo = [playerList[req.params.id].name, playerList[req.params.id].profession];
     res.setHeader('Content-Type','text/plain');
     res.send(playerInfo);
 }
 
 // For each loop through player array, storing names in new playerNames array, responds with playerName array
 exports.getPlayerNames = function(req, res) {
-    var playerNames = [];
-
-    playerList.forEach((player) => {
-        playerNames.push(player.name);
-    });
-
     res.setHeader('Content-Type','text/plain');
-    res.send(playerNames);
+    res.send(playerNames(playerList));
 }
 
 // Sets player profession using profession given in req, responds with player info
@@ -50,3 +45,29 @@ exports.setProfession = function (req, res) {
     res.send(playerList[0]);
 }
 
+exports.setPlayerMoney = (req, res) => {
+    playerList[0].money = req.body.money;
+    res.setHeader('Content-Type', 'text/plain');
+    res.send(playerList[0]);
+}
+
+exports.setName = (req, res) => {
+    playerList[req.body.playerNum].name = req.body.name;
+    res.setHeader('Content-Type', 'text/plain');
+    res.send(playerList[req.body.playerNum]);
+}
+
+exports.setMonth = (req, res) => {
+    gameData.gameInfo.startMonth = req.body.month;
+    res.send(gameData.gameInfo.startMonth);
+}
+
+function playerNames(players) {
+    var playerNameList = [];
+
+    playerList.forEach((player) => {
+        playerNameList.push(player.name);
+    });
+
+    return playerNameList;
+}

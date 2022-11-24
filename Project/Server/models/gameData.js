@@ -51,9 +51,10 @@ class GameData {
     */
 
     constructor() {
-        this.players = [];
+        this.players = [new Player("a", true, "", 0), new Player("b", true, "", 0), 
+        new Player("c", true, "", 0), new Player("d", true, "", 0), new Player("e", true, "", 0)];
         this.totalMoney = this.calcMoney();
-        this.startMonth = 0;
+        this.startMonth = "";
         this.miles = 0;
         this.groupHealth = new GroupHealth(100);
         this.totalDays = 0;

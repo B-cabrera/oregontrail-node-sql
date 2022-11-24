@@ -76,3 +76,12 @@ app.route('/api/health')
 
 app.route('/api/setup/screen/:id')
 .get(setupController.getSetupScreen);
+
+app.route('/api/setup/player/money')
+.post(setupController.setPlayerMoney);
+
+app.route('/api/setup/player/name')
+.post(setupController.setName);
+
+app.route ('/api/setup/month')
+.post(setupController.setMonth);
