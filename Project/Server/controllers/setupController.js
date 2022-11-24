@@ -9,7 +9,8 @@ var chooseProf = "<h2>Choose who you would like to be!</h2>"
 + "</ol>";
 var chooseLeadName = "<label for=\"prompt\" id=\"inputlabel\" >What is your name ?</label>"
 + "<input type=\"text\" id=\"prompt\" />";
-var chooseMonth = "<p>Choose Starting Month</p>";
+var chooseMonth = "<label for=\"monthInput\" id=\"monthInputLabel\">Enter your preferred starting month</label>"
++ "<input  type=\"text\" id=\"monthInput\" />";
 var summary = "<p>Summary</p>"; 
 var explanation = "<p id=\"explain\">If you choose Banker you will start off with $2000</p>"
 + "<p id=\"explain\">If you choose Carpenter you will start off with $1800</p>"

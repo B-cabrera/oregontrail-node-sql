@@ -1,6 +1,21 @@
 var menu = document.getElementById('menu');
 var isPageDone = false;
 var pNum = 0;
+var months = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december"
+]
+
 
 window.addEventListener('load', () => {
     // check if sessionStorage already has values
@@ -85,6 +100,29 @@ function getName(event) {
     }
 }
 
+function getStartMonth(event) {
+    if (event.key === "Enter") {
+        var input = document.getElementById("monthInput").value;
+        
+        // Check for all spaces or no text
+        if (!checkForSpaces(input)) {
+            document.getElementById("monthInput").value = "";
+            // Trim off beginning and end whitespace
+            // Make all lowercase and check with month array
+            if (months.indexOf(input.trim().toLowerCase()) >= 0) {
+                sessionStorage.setItem('startMonth', input.trim().toLowerCase());
+                
+                sessionStorage.setupPhase = 3;
+                begin();
+            }
+        }
+         
+        document.getElementById("monthInputLabel").textContent = "Invalid Month!";
+        
+
+    }
+}
+
 function begin() {
     fetch(`/api/setup/screen/${sessionStorage.setupPhase}`).then(res => {
         return res.text();
@@ -100,10 +138,9 @@ function begin() {
     } else if (sessionStorage.setupPhase == 1) {
         document.body.removeEventListener('keydown', chooseChoice, true);
         document.body.addEventListener('keydown', getName, true);
-
-
-
-
+    } else if (sessionStorage.setupPhase == 2) {
+        document.body.removeEventListener('keydown', getName, true);
+        document.body.addEventListener('keydown', getStartMonth, true);
     }
 
 }

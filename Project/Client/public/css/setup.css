@@ -7,7 +7,7 @@ label {
     font-weight: 700;
 }
 
-#prompt {
+#prompt, #monthInput {
     padding-top: 10px;
     padding-bottom: 10px;
     border-color: black;
@@ -26,5 +26,8 @@ label {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+
+
 
 

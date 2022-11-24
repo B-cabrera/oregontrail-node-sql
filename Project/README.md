@@ -16,7 +16,7 @@
 - [x] Implement choose profession with setupController
 - [x] Implement choosing wagon leader name
 - [x] Implement choosing the rest of group's names
-- [ ] Implement choosing start month
+- [x] Implement choosing start month
 - [ ] Implement summary screen that shows all the results
 - [ ] Use fetch api for setup screens
 
