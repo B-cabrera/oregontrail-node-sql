@@ -32,6 +32,9 @@
 - [ ] Create queries tp get top scores from database
 - [ ] Create queries to save new top score
 
+## Rest of the Game
+ - [ ] Build out actaully playing the game
+
 
 ## Custom Portion
 - [ ] Add custom portion to game
