@@ -5,7 +5,10 @@ window.addEventListener('load', displayStatus);
 
 
 // Listening for key press of the "1" key and redirecting
-listenToPressRedirect(body, "1", '/trail')
+if (sessionStorage.isSetup == 'true')
+    listenToPressRedirect(body, "1", '/trail')
+else
+    listenToPressRedirect(body, "1", '/setup')
 
 // Listening for key press of the "2" key and redirecting
 listenToPressRedirect(body, "2", '/setup');
@@ -37,7 +40,6 @@ function toggleSound(state) {
 
 // Displays sound status text
 function displayStatus() {
-    console.log("Displaying");
     var soundText = document.getElementById("sound-status");
 
     if (soundState)

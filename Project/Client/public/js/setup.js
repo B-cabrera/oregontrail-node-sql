@@ -186,26 +186,76 @@ function begin() {
     );
 
     if (sessionStorage.setupPhase == 0) {
+
         document.body.addEventListener('keydown', chooseChoice, true);
+        
     } else if (sessionStorage.setupPhase == 1) {
+
         document.body.removeEventListener('keydown', chooseChoice, true);
         document.body.addEventListener('keydown', getName, true);
+
     } else if (sessionStorage.setupPhase == 2) {
+
         document.body.removeEventListener('keydown', getName, true);
         document.body.addEventListener('keydown', getStartMonth, true);
+
     } else if (sessionStorage.setupPhase == 3) {
+
         document.body.removeEventListener('keydown', getStartMonth, true);
 
+        // Set isSetup variable in session Storage true to "unlock" trail page
+        sessionStorage.isSetup = true;
+        // Show summary after the initial page is fetched
         fetched.then(() => {
-            console.log("Got data down");
-            fetch('/api/setup/player').then((res) => {
-                return res.text()
+            
+            // Get the user name and profession
+            fetch('/api/setup/player/0').then((res) => {
+                return res.json()
             }).then((data) => {
-                console.log("Got data appending");
-                var newtext = data.replace(/[\[\]"]/g, '');
-                console.log(newtext);
-                document.getElementById("names").textContent = "Your group: " + newtext;
-            });
+                var name = data[0]
+                var prof = data[1]
+                
+                // Place data on screen
+                document.getElementById('userName').textContent = `Your name: ${name}`;
+                document.getElementById('userProf').textContent = `Your Profession: ${prof}`;
+            }).then(() => {
+                // Get player money 
+                fetch('api/player/money').then((res) => {
+                    return res.text();
+                }).then((data) => { 
+                    var money = data;
+                    
+                    // Place data on screen
+                    document.getElementById('userMoney').textContent = `Your money: $${money}`;
+                    
+                });
+            }).then(() => {
+                // Get player names
+                fetch('/api/setup/player').then((res) => {
+                    return res.json()
+                }).then((data) => {
+                    var len = Object.keys(data).length;
+                    var restNames = [];
+                    
+                    for (var i = 1; i < len; i++)
+                        restNames.push(data[i]);
+
+                    document.getElementById('names').textContent = `Group: ${restNames}`;
+                })
+            }).then(() => {
+                // Get month
+                fetch('/api/gameData/').then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    var month = data.startMonth.substring(0,1).toUpperCase() + data.startMonth.substring(1);
+                    
+
+                    document.getElementById('month').textContent = `Starting Month: ${month}`;
+                })
+            })
+
+
+
         })
 
     };

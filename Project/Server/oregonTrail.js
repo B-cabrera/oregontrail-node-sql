@@ -85,3 +85,6 @@ app.route('/api/setup/player/name')
 
 app.route ('/api/setup/month')
 .post(setupController.setMonth);
+
+app.route('/api/player/money')
+.get(setupController.getMoney);

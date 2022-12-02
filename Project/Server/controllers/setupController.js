@@ -12,7 +12,13 @@ var chooseLeadName = "<label for=\"prompt\" id=\"inputlabel\" >What is your name
 var chooseMonth = "<label for=\"monthInput\" id=\"monthInputLabel\">Enter your preferred starting month</label>"
 + "<input  type=\"text\" id=\"monthInput\" />";
 var summary = "<p id=\"label\">Summary</p>"
-+ "<p id=\"names\"></p>";
++ "<div id=\"info\">"
++ "<p id= \"userName\"></p>" 
++ "<p id=\"userProf\"></p>"
++ "<p id=\"userMoney\"></p>"
++ "<p id=\"names\"></p>"
++ "<p id=\"month\"></p>"
++"</div>";
 var explanation = "<p id=\"explain\">If you choose Banker you will start off with $2000</p>"
 + "<p id=\"explain\">If you choose Carpenter you will start off with $1800</p>"
 + "<p id=\"explain\">If you choose Farmer you will start off with $1500</p>";
@@ -60,6 +66,13 @@ exports.setName = (req, res) => {
 exports.setMonth = (req, res) => {
     gameData.gameInfo.startMonth = req.body.month;
     res.send(gameData.gameInfo.startMonth);
+}
+
+exports.getMoney = (req, res) => {
+    var cash = playerList[0].money
+
+    res.setHeader('Content-Type', 'text/plain')
+    res.send(cash);
 }
 
 function playerNames(players) {

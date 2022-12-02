@@ -18,8 +18,8 @@
 - [x] Implement choosing wagon leader name
 - [x] Implement choosing the rest of group's names
 - [x] Implement choosing start month
-- [ ] Implement summary screen that shows all the results
-- [ ] Use fetch api for setup screens
+- [x] Implement summary screen that shows all the results
+- [x] Use fetch api for setup screens
 
 
 ## Asynch Calls
