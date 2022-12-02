@@ -2,6 +2,7 @@
 
 ## TO-DO (Overall)
 - [ ] Build the setup part
+- [ ] Revise to ensure security
 - [ ] Implement all asynchronous calls
 - [ ] Create and connect databas
 - [ ] Add unique portion to the game
