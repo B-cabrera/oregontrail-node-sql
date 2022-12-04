@@ -6,17 +6,24 @@ body {
     padding-bottom: 25px;
     list-style-position: inside;
     font-size: 30px;
+    table-layout: fixed;
+}
+
+#menu {
+    background-color: #D2B48C;
+    color: #5C4033;
 }
 
 p {
     color:black;
 }
 
-table, tr, td {
+table, tr, td, th{
     border: 2px solid;
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
 }
 
 td {
