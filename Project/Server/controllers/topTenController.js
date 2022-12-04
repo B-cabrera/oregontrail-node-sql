@@ -1,9 +1,9 @@
-const topten = require('../models/topTen');
+const topscores = require('../models/topTen');
 
 
 // Responds with top ten array
 exports.getTopTen = function(req, res) {
-    res.send(topten.topTen.topPoints);
+    res.send(topscores);
 }
 
 /* Takes info from req, creates new top score obj with info, then adds to top point array

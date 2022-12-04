@@ -27,10 +27,10 @@
 
 
 ## Database
-- [ ] Create database to store top ten
-- [ ] Create table for top ten
-- [ ] Connect code to database
-- [ ] Create queries tp get top scores from database
+- [x] Create database to store top ten
+- [x] Create table for top ten
+- [x] Connect code to database
+- [x] Create queries tp get top scores from database
 - [ ] Create queries to save new top score
 
 ## Rest of the Game
