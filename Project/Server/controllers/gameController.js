@@ -1,6 +1,7 @@
 const gameData = require('../models/gameData');
 const pace = require('../models/pace');
 const weather = require('../models/weather');
+const terrain = require('../models/terrain');
 
 // Responds with gameData info as JSON version of gameData obj
 exports.getGameData = function(req, res) {
@@ -52,4 +53,16 @@ exports.resetWeather = function(res, req) {
 exports.getHealth = function(req, res) {
     res.setHeader('Content-Type','text/plain');
     res.send("" + gameData.gameInfo.groupHealth.health);
+}
+
+exports.getTerrain = (req, res) => {
+    res.setHeader('Content-Type','text/plain');
+    res.send(gameData.gameInfo.currentTerrain);
+}
+
+exports.changeTerrain = (req, res) => {
+    gameData.gameInfo.currentTerrain = terrain.Terrain.createTerrainList()[req.params.id].terrain;
+    res.setHeader('Content-Type','text/plain');
+    res.send(gameData.gameInfo.currentTerrain);
+
 }

@@ -88,3 +88,15 @@ app.route ('/api/setup/month')
 
 app.route('/api/player/money')
 .get(setupController.getMoney);
+
+app.route('/api/terrain')
+.get(gameController.getTerrain);
+
+app.route('/api/terrain/:id')
+.patch(gameController.changeTerrain);
+
+// NOTES
+/*
+ADD CHANGE TERRAIN ROUTE AND IMPLEMENT
+ADD TERRAINS TO DICT AND FIND OUT WAY TO UPDATE IT
+*/

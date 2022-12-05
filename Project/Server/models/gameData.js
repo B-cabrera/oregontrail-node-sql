@@ -61,7 +61,7 @@ class GameData {
         this.totalDays = 0;
         this.currentPace = pace.Pace.createPaceList()[0].name;
         this.currentWeather = weather.Weather.createWeatherList()[0].weather;
-        this.currentTerrain = terrain.Terrain.createTerrainList()[1].terrain;
+        this.currentTerrain = terrain.Terrain.createTerrainList()[0].terrain;
         this.deadList = [];
         this.messages = [];
 

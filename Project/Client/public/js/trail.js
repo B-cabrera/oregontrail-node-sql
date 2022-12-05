@@ -1,23 +1,56 @@
+var wagon = new Image(80,50)
+
+// Dict to have image source as val with terrain as key
+var imageTerrainDict = {
+    'Grassland': '/images/terrain/grassland.jpg',
+    'Mountains': '/images/terrain/mountains.jpg',
+    'Plains': '/images/terrain/plains.jpg',
+    'Forest': '/images/terrain/forest.jpg',
+    'Desert': '/images/terrain/desert.jpg'
+};
+
+// Dicto to have image source as val with weather as key
+var imageWeatherDict = {
+    'Clear': '/images/weather/clear-sky.jpg',
+    'Cloudy': '/images/weather/cloudy.jpg',
+    'Rain': '/images/weather/rain.jpg',
+    'Heavy Rain': '/images/weather/heavy-rain.jpg',
+    'Fog': '/images/weather/fog.jpg',
+    'Heavy Fog': '/images/weather/heavy-fog.jpg',
+    'Snow': '/images/weather/snow.jpeg',
+    'Hail': '/images/weather/hail.jpg',
+    'Sleet': '/images/weather/sleet.jpg',
+    'Blowing snow': '/images/weather/blowing-snow.jpg',
+    'Blizzard': '/images/weather/blizzard.jpg',
+    'Thunderstorm': '/images/weather/thunderstorm.jpg',
+    'Tornado': '/images/weather/tornado.jpg'
+};
 
 
-function checkForSetup() {
-    if (sessionStorage.isSetup == 'false') {
-        window.location = '/setup';
-    }  
-}
+
+
+wagon.src = '/images/misc/dark-brown-wagon.png';
+wagon.id = 'wagon';
+
+
+
 
 checkForSetup();
 
 // On window load, get game data to fill out fields, place wagon
 window.addEventListener('load', displayInfo);
 window.addEventListener('load', placeWagon);
+window.addEventListener('load', showTerrain);
+window.addEventListener('load', showWeather);
 
-var wagon = new Image(80,50)
-wagon.src = '/images/dark-brown-wagon.png';
-wagon.id = 'wagon';
 
 // moveWagon(300);
 
+function checkForSetup() {
+    if (sessionStorage.isSetup == 'false') {
+        window.location = '/setup';
+    }  
+}
 
 function displayInfo() {
     // Fetch to get all game data
@@ -57,7 +90,7 @@ function placeWagon() {
     var linePosition  = document.getElementById('travel-line').getBoundingClientRect();
 
     // Set Wagon picture on top of line
-    wagon.style.top = `${linePosition.top}px`;
+    wagon.style.top = `${linePosition.top - 20}px`;
 }
 
 // Moves wagon to the right (num) pixels
@@ -68,6 +101,27 @@ function moveWagon(num) {
 
     // Set new left to previous left + num
     wagon.style.left = `${wagonLeft + num}px`
+}
+
+function showTerrain() {
+    // fetch for weather
+
+    fetch('/api/terrain').then((res) => {
+        return res.text();
+    }).then((data) =>{
+        var holder = document.getElementById('action')
+        holder.src = imageTerrainDict[data]
+    })
+}
+
+function showWeather() {
+
+    fetch('/api/weather').then((res) => {
+        return res.text();
+    }).then((data) => {
+        // Set background picture to be weather picture
+        document.body.style.backgroundImage =  `url(${imageWeatherDict[data]})`;
+    })
 }
 
 
