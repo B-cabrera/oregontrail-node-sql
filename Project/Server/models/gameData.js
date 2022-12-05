@@ -47,6 +47,7 @@ class GameData {
     currentPace: var tracking current pace of game, uses Pace obj
     currentWeather: var tracking current weather of game, uses Weather obj
     currentTerrain: var tracking current terrain of game, uses Terrain obj
+    deadList: list of all dead players;
     messages: array holding game messages
     */
 
@@ -61,6 +62,7 @@ class GameData {
         this.currentPace = pace.Pace.createPaceList()[0].name;
         this.currentWeather = weather.Weather.createWeatherList()[0].weather;
         this.currentTerrain = terrain.Terrain.createTerrainList()[1].terrain;
+        this.deadList = [];
         this.messages = [];
 
     }

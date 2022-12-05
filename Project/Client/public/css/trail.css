@@ -12,7 +12,10 @@ img {
 #info {
     width: 20vw;
     border-radius: 10px;
-    background-color: grey;
+    background-color: #30AD5A;
+    color: black;
+    font-family: 'Kdam Thmor Pro', sans-serif;
+    padding-left: 10px;
 }
 
 #mid-page {
@@ -22,9 +25,5 @@ img {
 }
 
 
-.info-text {
-    font-weight: 900;
-    padding-left: 10px;
-}
 
 

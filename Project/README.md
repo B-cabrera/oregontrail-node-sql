@@ -4,14 +4,14 @@
 - [ ] Build the setup part
 - [ ] Revise to ensure security
 - [ ] Implement all asynchronous calls
-- [ ] Create and connect databas
+- [x] Create and connect databas
 - [ ] Add unique portion to the game
 - [ ] (Optional) Make fonts individual by page/location
 - [ ] Comment and clean up code
 - [ ] Finish and submit
 
 ## TO-DO 
-- NOTE: FIX TOP TEN GETTING SCORES
+
 
 
 ## Setup
