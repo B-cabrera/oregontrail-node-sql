@@ -8,30 +8,15 @@ function checkForSetup() {
 
 checkForSetup();
 
-/* <p class="days-text">Days on trail</p>
-<p class="miles-text">Miles traveled</p>
-<p class="health-text">Party health status</p>
-<p class="weather-text">Current weather</p>
-<p class="pace-text">Current pace</p>
-<p class="terrain-text">Current terrain</p>
-<p class="alive-text"># of party members alive</p> */
+// On window load, get game data to fill out fields, place wagon
+window.addEventListener('load', displayInfo);
+window.addEventListener('load', placeWagon);
 
-/*
-players: list of players
-totalMoney: num representing total money group has
-startMonth: Month game begins on
-miles: num tracking current miles
-groupHealth: GroupHealth obj tracking group health
-totalDays: num tracking days on trail
-currentPace: var tracking current pace of game, uses Pace obj
-currentWeather: var tracking current weather of game, uses Weather obj
-currentTerrain: var tracking current terrain of game, uses Terrain obj
-deadList: list of all dead players;
-messages: array holding game messages
-*/
+var wagon = new Image(80,50)
+wagon.src = '/images/dark-brown-wagon.png';
+wagon.id = 'wagon';
 
-// On window load, get game data to fill out fields
-window.addEventListener('load', displayInfo)
+// moveWagon(300);
 
 
 function displayInfo() {
@@ -60,4 +45,32 @@ function displayInfo() {
 
     })
 }
+
+
+// Puts wagon on page positions it on line
+function placeWagon() {
+
+    // Add to page
+    document.body.appendChild(wagon);
+
+    // Get position details of line represent the trail
+    var linePosition  = document.getElementById('travel-line').getBoundingClientRect();
+
+    // Set Wagon picture on top of line
+    wagon.style.top = `${linePosition.top}px`;
+}
+
+// Moves wagon to the right (num) pixels
+function moveWagon(num) {
+    
+    // Get wagon x position or "left"
+    var wagonLeft = wagon.getBoundingClientRect().left;
+
+    // Set new left to previous left + num
+    wagon.style.left = `${wagonLeft + num}px`
+}
+
+
+
+
 

@@ -1,9 +1,13 @@
 body {
-    background-image: url(/images/grass-big.jpg);
+    background-image: url(/images/grass-big.jpg) ;
+    width: 100%;
+    background-color: black;
+    background-repeat: no-repeat;
+    margin: 0;    
 }
 
 
-img {
+#action {
     width: 85vh;
     border: 10px solid;
 }
@@ -22,6 +26,18 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+#travel-line {
+    width: 95vw;
+    border: 20px solid rgb(26, 92, 26);
+    border-radius: 5px;
+}
+
+
+#wagon {
+    position: absolute;
+    transform: scaleX(-1);
 }
 
 
