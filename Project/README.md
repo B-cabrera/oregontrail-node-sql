@@ -11,6 +11,7 @@
 - [ ] Finish and submit
 
 ## TO-DO 
+- NOTE: FIX TOP TEN GETTING SCORES
 
 
 ## Setup

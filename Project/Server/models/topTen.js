@@ -9,21 +9,7 @@ class TopScore {
     }
 }
 
-
-// Holds an array of TopScore obj's
-class TopTen {
-
-    // Value passed should be array of topscore objects
-    constructor(scores) {
-
-        // Example list
-        this.topPoints = [new TopScore('Brenden', new Date().toDateString(), 1000)];
-    }
-
-
-
-}
-
+module.exports.TopScore = TopScore;
  
 // Make connection to database
 var db = mysql.createConnection({
@@ -33,26 +19,51 @@ var db = mysql.createConnection({
     database: 'oregontraildb'
 })
 
-// Connect to the database
-db.connect((err) => {
-    if (err) {
-        console.log(err);
-    }
 
-    // Query and get scores ordered by score
-    db.query('SELECT * FROM TopScores ORDER BY points DESC', (err, result) => {
-        if (err) {
-            console.log(err);
-        }
+exports.getScores = function getScores() {
 
-        var allscores = [];
+    return new Promise(function (resolve) {
 
-        result.forEach((record, index) => {
-            // Only getting the top ten
-            if (index < 10)
-                allscores.push(new TopScore(record.name, record.date.toLocaleDateString("en-US"), record.points))
+        // Connect to the database
+        db.connect((err) => {
+            if (err) {
+                console.log(err);
+            }
+        
+            // Query and get scores ordered by score
+            db.query('SELECT * FROM TopScores ORDER BY points DESC', (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+        
+                var allscores = [];
+        
+                result.forEach((record) => {
+                    // Only getting the top ten
+                    allscores.push(new TopScore(record.name, record.date.toLocaleDateString("en-US"), record.points))
+                })
+                
+                resolve(allscores);
+    
+                
+            })
         })
 
-        exports.topScores = allscores;
     })
-})
+
+    
+}
+
+exports.addScore = function addScore (tScore) {
+    db.connect((err) => {
+        if (err) throw err;
+
+        var line = `INSERT INTO topscores(name, date, points) VALUE ("${tScore.name}", "${tScore.date}", ${tScore.score})`;
+
+        db.query(line, (err, result) => {
+            if (err) console.log(err);
+
+            return result;
+        })
+    })
+}

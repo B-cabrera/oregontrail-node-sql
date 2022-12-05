@@ -9,8 +9,8 @@ function displayScores() {
         return res.json();
     }).then((data) => {
         // DATA IS TOP TEN ARRAY
-        data.topScores.forEach(element => {
-            
+        data.forEach((element, index) => {
+            if (index > 9) return;
             // Create table row element
             var currentrow = document.createElement('tr');
 
