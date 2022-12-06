@@ -39,6 +39,18 @@ body {
     transform: scaleX(-1);
 }
 
+#starting{
+    font-family: 'Kdam Thmor Pro', sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    background-color: #30AD5A;
+    color: white;
+    border: 5px solid #30AD5A;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 
 
 

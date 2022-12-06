@@ -1,4 +1,5 @@
 var wagon = new Image(80,50)
+var isStarted = false;
 
 // Dict to have image source as val with terrain as key
 var imageTerrainDict = {
@@ -37,14 +38,32 @@ wagon.id = 'wagon';
 
 checkForSetup();
 
-// On window load, get game data to fill out fields, place wagon
-window.addEventListener('load', displayInfo);
-window.addEventListener('load', placeWagon);
-window.addEventListener('load', showTerrain);
-window.addEventListener('load', showWeather);
+// On window load, start all the game functions
+window.addEventListener('load', setup);
 
 
-// moveWagon(300);
+function setup() {
+
+    // Setup the regular trail screen
+    displayInfo();
+    placeWagon();
+    showTerrain();
+    showWeather();
+    showStartButton();
+
+
+    // Add event listener for start game button
+    var startGame = document.getElementById('starting');
+    startGame.addEventListener('click', () => {
+        // If clicked, get off screen and prompt the first message
+        startGame.remove();
+        game();
+    })
+}
+
+function game() {
+    console.log("Game is Started");
+}
 
 function checkForSetup() {
     if (sessionStorage.isSetup == 'false') {
@@ -122,6 +141,21 @@ function showWeather() {
         // Set background picture to be weather picture
         document.body.style.backgroundImage =  `url(${imageWeatherDict[data]})`;
     })
+}
+
+function showStartButton() {
+    // if game has started return;
+    if (isStarted) return;
+
+    // Create and display startButton(Using p tag)
+    var start = document.createElement('p')
+
+    start.textContent = "Start Game";
+    start.id = 'starting'
+
+
+    // Append to mid page div
+    document.getElementById('mid-page').appendChild(start);
 }
 
 
