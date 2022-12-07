@@ -37,43 +37,65 @@ var imageWeatherDict = {
 
 
 checkForSetup();
-showTerrain();
-showWeather();
 
 // On window load, start all the game functions 
-window.addEventListener('load', setup);
+window.addEventListener('load', game);
 
 
-function setup() {
+function game() {
     
     // Setup the regular trail screen
+    showTerrain();
+    showWeather();
     displayInfo();
     
-    if (sessionStorage.isStarted == 'false')
-    showStartButton();
+    if (sessionStorage.gamePhase == 0) {
+        showStartButton();
+    } else if (sessionStorage.gamePhase == 1) {
+        startMessage();
+    } else if (sessionStorage.gamePhase == 2) {
+        console.log("CHANGED");
+    }
     
     
-    // Add event listener for start game button
-    var startGame = document.getElementById('starting');
-    startGame.addEventListener('click', () => {
-        // If clicked, get off screen and prompt the first message
-        startGame.remove();
-        game();
-    })
+
     
 }
 
-function game() {
-    sessionStorage.isStarted = true;
+// Shows initial start message
+function startMessage() {
     
-    moveWagon(60);
-    
-    var box = document.createElement('p');
-    box.textContent = "WELCOME TO THE OREGON TRAIL!!!";
-    
+   // Create div to hold the start message contents
+    var box = document.createElement('div');
+    box.textContent = "WELCOME TO THE OREGON TRAIL!";
     box.id = 'event-box';
+
+    document.body.appendChild(box);
+
+    // Creating beginning message p tags and placing them in dvi
+    var text = document.createElement('p');
+    text.textContent = "You and your group decide to begin your trip. Everyone is healthy and ready to embark on the trail."
+    + "\n Press 'G' to continue.";
+
+    document.getElementById('event-box').appendChild(text);
     
     document.body.appendChild(box);
+
+    // Add event listener for the 'g' key to advance the game
+    document.body.addEventListener('keyup', (event) => {
+        
+        if (event.key === 'g') {
+            // Change game phase and remove message from screen
+            sessionStorage.gamePhase = 2;
+
+            box.remove();
+            text.remove();
+
+            game();
+        }
+    })
+    
+
     
     
     
@@ -171,7 +193,7 @@ function showWeather() {
 
 function showStartButton() {
     // if game has started return;
-    if (sessionStorage.isStarted == 'true') return;
+    if (sessionStorage.gamePhase > 0) return;
 
     // Create and display startButton(Using p tag)
     var start = document.createElement('p')
@@ -182,6 +204,17 @@ function showStartButton() {
 
     // Append to mid page div
     document.getElementById('mid-page').appendChild(start);
+
+    // Add event listener for start game button
+    start.addEventListener('click', () => {
+        // If clicked, get off screen and prompt the first message
+        start.remove();
+        
+        
+        // When started, change game phase
+        sessionStorage.setItem('gamePhase', 1);
+        game();
+    })
 }
 
 

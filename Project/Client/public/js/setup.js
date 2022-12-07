@@ -254,8 +254,19 @@ function begin() {
                 })
             })
 
-            // Create the isStarted value for the game
-            sessionStorage.setItem('isStarted', false);
+            // Set value isStarted and gamePhase in session storage
+            sessionStorage.setItem('gamePhase', 0);
+
+            // Remove all unneeded storage
+            sessionStorage.removeItem('Player0');
+            sessionStorage.removeItem('Player1');
+            sessionStorage.removeItem('Player2');
+            sessionStorage.removeItem('Player3');
+            sessionStorage.removeItem('Player4');
+            sessionStorage.removeItem('profession');
+            sessionStorage.removeItem('pMoney');
+            sessionStorage.removeItem('startMonth')
+
 
 
         })
