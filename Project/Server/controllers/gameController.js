@@ -64,5 +64,11 @@ exports.changeTerrain = (req, res) => {
     gameData.gameInfo.currentTerrain = terrain.Terrain.createTerrainList()[req.params.id].terrain;
     res.setHeader('Content-Type','text/plain');
     res.send(gameData.gameInfo.currentTerrain);
+}
 
+exports.setMiles = (req, res ) => {
+    
+    gameData.gameInfo.miles = req.body.miles;
+
+    res.send("" + gameData.gameInfo.miles);
 }

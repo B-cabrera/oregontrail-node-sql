@@ -254,6 +254,8 @@ function begin() {
                 })
             })
 
+            // Create the isStarted value for the game
+            sessionStorage.setItem('isStarted', false);
 
 
         })
