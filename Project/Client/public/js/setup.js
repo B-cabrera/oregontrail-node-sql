@@ -188,7 +188,7 @@ function begin() {
     if (sessionStorage.setupPhase == 0) {
 
         document.body.addEventListener('keydown', chooseChoice, true);
-        
+
     } else if (sessionStorage.setupPhase == 1) {
 
         document.body.removeEventListener('keydown', chooseChoice, true);
@@ -207,14 +207,14 @@ function begin() {
         sessionStorage.isSetup = true;
         // Show summary after the initial page is fetched
         fetched.then(() => {
-            
+
             // Get the user name and profession
             fetch('/api/setup/player/0').then((res) => {
                 return res.json()
             }).then((data) => {
                 var name = data[0]
                 var prof = data[1]
-                
+
                 // Place data on screen
                 document.getElementById('userName').textContent = `Your name: ${name}`;
                 document.getElementById('userProf').textContent = `Your Profession: ${prof}`;
@@ -222,12 +222,12 @@ function begin() {
                 // Get player money 
                 fetch('api/player/money').then((res) => {
                     return res.text();
-                }).then((data) => { 
+                }).then((data) => {
                     var money = data;
-                    
+
                     // Place data on screen
                     document.getElementById('userMoney').textContent = `Your money: $${money}`;
-                    
+
                 });
             }).then(() => {
                 // Get player names
@@ -236,7 +236,7 @@ function begin() {
                 }).then((data) => {
                     var len = Object.keys(data).length;
                     var restNames = [];
-                    
+
                     for (var i = 1; i < len; i++)
                         restNames.push(data[i]);
 
@@ -247,10 +247,28 @@ function begin() {
                 fetch('/api/gameData/').then((res) => {
                     return res.json();
                 }).then((data) => {
-                    var month = data.startMonth.substring(0,1).toUpperCase() + data.startMonth.substring(1);
-                    
+                    var month = data.startMonth.substring(0, 1).toUpperCase() + data.startMonth.substring(1);
+
 
                     document.getElementById('month').textContent = `Starting Month: ${month}`;
+                })
+
+                // set miles to 0 incase previously changed
+                fetch('/api/miles', {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    },
+                    body: '{"miles": 0}'
+                })
+
+                // set days to 0 incase previously change
+                fetch('/api/day', {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    },
+                    body: '{"day": 0}'
                 })
             })
 

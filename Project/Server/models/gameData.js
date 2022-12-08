@@ -59,9 +59,9 @@ class GameData {
         this.miles = 0;
         this.groupHealth = new GroupHealth(100);
         this.totalDays = 0;
-        this.currentPace = pace.Pace.createPaceList()[0].name;
-        this.currentWeather = weather.Weather.createWeatherList()[0].weather;
-        this.currentTerrain = terrain.Terrain.createTerrainList()[0].terrain;
+        this.currentPace = pace.Pace.createPaceList()[0];
+        this.currentWeather = weather.Weather.createWeatherList()[0];
+        this.currentTerrain = terrain.Terrain.createTerrainList()[0];
         this.deadList = [];
         this.messages = [];
 

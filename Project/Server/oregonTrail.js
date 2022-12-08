@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const gameController = require('./controllers/gameController');
 const setupController = require('./controllers/setupController');
 const topTenController = require('./controllers/topTenController');
+const eventController = require('./controllers/eventController');
 const app = express();
 const port = 1337;
 
@@ -41,6 +42,8 @@ app.listen(port, () => {
 }); 
 
 // ROUTES
+
+// GAME CONTROLLER
 app.route('/api/pace/:id')
 .patch(gameController.changePace);
 
@@ -58,10 +61,30 @@ app.route('/api/weather/:id')
 app.route('/api/gameData')
 .get(gameController.getGameData);
 
+app.route('/api/health')
+.get(gameController.getHealth);
+
+app.route('/api/terrain')
+.get(gameController.getTerrain);
+
+app.route('/api/terrain/:id')
+.patch(gameController.changeTerrain);
+
+app.route('/api/miles')
+.get(gameController.getMiles)
+.post(gameController.setMiles);
+
+app.route('/api/day')
+.get(gameController.addDay)
+.post(gameController.setDay);
+
+// TOP TEN CONTROLLER
 app.route('/api/topTen')
 .get(topTenController.getTopTen)
 .post(topTenController.addNewScore);
 
+
+// SETUP CONTROLLER
 app.route('/api/setup/player/:id')
 .get(setupController.getPlayerInfo);
 
@@ -71,8 +94,6 @@ app.route('/api/setup/player')
 app.route('/api/setup/profession')
 .post(setupController.setProfession);
 
-app.route('/api/health')
-.get(gameController.getHealth);
 
 app.route('/api/setup/screen/:id')
 .get(setupController.getSetupScreen);
@@ -89,11 +110,6 @@ app.route ('/api/setup/month')
 app.route('/api/player/money')
 .get(setupController.getMoney);
 
-app.route('/api/terrain')
-.get(gameController.getTerrain);
-
-app.route('/api/terrain/:id')
-.patch(gameController.changeTerrain);
-
-app.route('/api/miles')
-.post(gameController.setMiles)
+// EVENT CONTROLLER
+app.route('/api/event')
+.get(eventController.getChange);

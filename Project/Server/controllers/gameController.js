@@ -11,7 +11,7 @@ exports.getGameData = function(req, res) {
 
 // Assigns current pace to pace given through req, then responds with updated current pace
 exports.changePace = function(req, res) {
-    gameData.gameInfo.currentPace = pace.Pace.createPaceList()[req.params.id].name;
+    gameData.gameInfo.currentPace = pace.Pace.createPaceList()[req.params.id];
     res.setHeader('Content-Type','text/plain');
     res.send(gameData.gameInfo.currentPace)
 }
@@ -24,7 +24,7 @@ exports.getPace = function(req, res) {
 
 // Sets pace to first in pace array (Steady) then responds with current pace
 exports.resetPace = function(req, res) {
-    gameData.gameInfo.currentPace = pace.Pace.createPaceList()[0].name;
+    gameData.gameInfo.currentPace = pace.Pace.createPaceList()[0];
     res.setHeader('Content-Type','text/plain');
     res.send(gameData.gameInfo.currentPace);
 }
@@ -37,14 +37,14 @@ exports.getWeather = function(req, res) {
 
 // Changes current weather to weather with id given in req, responds with current weather
 exports.changeWeather = function(req, res) {
-    gameData.gameInfo.currentWeather = weather.Weather.createWeatherList()[req.params.id].weather;
+    gameData.gameInfo.currentWeather = weather.Weather.createWeatherList()[req.params.id];
     res.setHeader('Content-Type','text/plain');
     res.send(gameData.gameInfo.currentWeather);
 }
  
 // Sets weather to first in weather array (Clear), then responds with current weather
 exports.resetWeather = function(res, req) {
-    gameData.gameInfo.currentWeather = weather.Weather.createWeatherList()[0].weather;
+    gameData.gameInfo.currentWeather = weather.Weather.createWeatherList()[0];
     res.setHeader('Content-Type','text/plain');
     res.send(gameData.gameInfo.currentWeather);
 }
@@ -61,7 +61,7 @@ exports.getTerrain = (req, res) => {
 }
 
 exports.changeTerrain = (req, res) => {
-    gameData.gameInfo.currentTerrain = terrain.Terrain.createTerrainList()[req.params.id].terrain;
+    gameData.gameInfo.currentTerrain = terrain.Terrain.createTerrainList()[req.params.id];
     res.setHeader('Content-Type','text/plain');
     res.send(gameData.gameInfo.currentTerrain);
 }
@@ -69,6 +69,28 @@ exports.changeTerrain = (req, res) => {
 exports.setMiles = (req, res ) => {
     
     gameData.gameInfo.miles = req.body.miles;
-
+    res.setHeader('Content-Type','text/plain');
     res.send("" + gameData.gameInfo.miles);
+}
+
+exports.getMiles = (req, res) => {
+    res.setHeader('Content-Type','text/plain');
+    res.send("" + gameData.gameInfo.miles);
+}
+
+exports.addDay = (req, res) => {
+    res.setHeader('Content-Type','text/plain');
+    if (gameData.gameInfo.totalDays >= 45)
+        res.send("max");
+    else {
+        gameData.gameInfo.totalDays++;
+        res.send("ok");
+    }
+}
+
+exports.setDay = (req, res ) => {
+    
+    gameData.gameInfo.totalDays = req.body.day;
+    res.setHeader('Content-Type','text/plain');
+    res.send("" + gameData.gameInfo.day);
 }
