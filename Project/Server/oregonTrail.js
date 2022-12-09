@@ -111,5 +111,11 @@ app.route('/api/player/money')
 .get(setupController.getMoney);
 
 // EVENT CONTROLLER
-app.route('/api/event')
+app.route('/api/event/change')
 .get(eventController.getChange);
+
+app.route('/api/event')
+.get(eventController.getEvent);
+
+app.route('/api/event/bible')
+.post(eventController.resetBibleEvent)

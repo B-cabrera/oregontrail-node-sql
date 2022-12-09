@@ -270,6 +270,14 @@ function begin() {
                     },
                     body: '{"day": 0}'
                 })
+
+                // reset bible event if changed
+                fetch('/api/event/bible', {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                })
             })
 
             // Set value isStarted and gamePhase in session storage

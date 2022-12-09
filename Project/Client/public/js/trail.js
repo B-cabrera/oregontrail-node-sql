@@ -38,7 +38,7 @@ checkForSetup();
 
 // var box = document.createElement('div')
 var box = document.getElementById('event-box')
-box.textContent = 'WELCOME TO OREGON TRAIL!';
+box.textContent = 'OREGON TRAIL!';
 box.id = 'event-box'
 box.hidden = true;
 
@@ -106,7 +106,7 @@ function walkTrail() {
 function startMessage() {
 
     // Create div to hold the start message contents
-    box.textContent = "WELCOME TO THE OREGON TRAIL!";
+    box.textContent = "Oregon Trail";
 
 
     // Creating beginning message p tags and placing them in dvi
@@ -293,13 +293,15 @@ function showEvent() {
 
     // 50/50 on it being a change in terrain/weather or story event
     var randNum = Math.random();
-    var weather = "";
     var terrain = "";
+    var hasOptions = [];
+    var effects = [];
 
 
     if (randNum > 0.5) {
+
         // fetch to get a change
-        fetch('/api/event').then((res) => {
+        fetch('/api/event/change').then((res) => {
             return res.json();
         }).then((data) => {
             /* Data form
@@ -335,7 +337,6 @@ function showEvent() {
                     showWeather();
                 })
             } else { // Terrain and weather change
-                var message = "";
 
                 // First, async req to change weather
                 fetch(`/api/weather/${data[1].id}`, {
@@ -359,36 +360,124 @@ function showEvent() {
                         return terrain;
                     }).then((terrain) => {
                         // Set event text
-                        eventText.textContent =`The terrain and weather have both changed to ${terrain} and ${weather}, respectively. 
+                        eventText.textContent = `The terrain and weather have both changed to ${terrain} and ${weather}, respectively. 
                         \n Be sure to adjust your travel plans accordingly to ensure a safe and successful journey on the trail.`
-    
+
                         showWeather();
                         showTerrain();
                     })
                 })
 
+                
             }
+            
+            // show message
+            box.appendChild(eventText);
+
+            // listen for dismiss key
+            dismissListener();
         })
     } else {
         // fetch to get a story event
-        eventText.textContent = 'YING';
+        fetch('api/event').then((res) => {
+            return res.json();
+        }).then((event) => {
+
+            // check length of result
+            var choices = event[1]
+            var prompt = event[0];
+            var options = [];
+
+
+            if (choices.length != 0) {
+                if (choices.length == 2) { // No choice event
+                    // Only add effects
+                    effects = choices[1]
+
+                    // listen for dismiss key
+                    dismissListener();
+                } else if (choices.length == 4) { // Choice event
+                    // add effects
+                    effects.push(choices[1]);
+                    effects.push(choices[3]);
+
+                    // add options text
+                    options.push(choices[0]);
+                    options.push(choices[2]);
+
+                    // listen options presses
+                    listenForChoice(effects);
+
+                }
+            }
+
+
+            // put prompt in p tag and add to box div
+            var promptElement = document.createElement('p')
+            promptElement.textContent = prompt;
+            box.appendChild(promptElement);
+
+            // add choices on screen if theres a choice
+            if (options.length != 0) {
+                var i = 1
+                options.forEach((option) => {
+                    if (i > 2) i = 0; // reset to 0 if there are more options (should never happen)
+                    var optionElement = document.createElement('p');
+                    optionElement.textContent = `${i}: ${option}`;
+                    box.appendChild(optionElement);
+                    i++;
+                })
+            }
+
+            console.log(effects);
+        })
     }
 
-
-
-
-
-    var box = document.getElementById('event-box');
-    box.appendChild(eventText);
     box.hidden = false;
+}
 
-    document.body.addEventListener('keyup', (event) => {
-        if (event.key == 'n') {
-            eventText.remove();
+function listenForChoice(effectList) {
+    console.log("Choices!: " + effectList);
+    // add event listener for you and two
+    document.addEventListener('keydown', function listener(event) {
+        console.log(event.key);
+        if (event.key == '1') {
+            // Key has been pressed, so remove the event listener
+            console.log(effectList[0]);
+            box.innerHTML = "";
+            box.hidden = true;
+            walkTrail();
+
+            document.removeEventListener('keydown', listener);
+
+        } else if (event.key == '2') {
+            console.log(effectList[1]);
+            box.innerHTML = "";
             box.hidden = true;
             walkTrail();
         }
-    }, {once: true})
+            document.removeEventListener('keydown', listener);
+
+    });
+}
+
+function dismissListener() {
+    console.log("NO CHOICES !");
+    // Add to text to tell viewer to dismiss with 'n'
+    var dismissText = document.createElement('p');
+    dismissText.textContent = 'Press "N" to dismiss';
+
+    box.appendChild(dismissText);
+
+    document.addEventListener('keydown', function listener(event) {
+        if (event.key == 'n') {
+            // Key has been pressed, so remove the event listener
+            box.innerHTML = "";
+            box.hidden = true;
+            walkTrail();
+            document.removeEventListener('keydown', listener);
+        }
+    });
 }
 
 

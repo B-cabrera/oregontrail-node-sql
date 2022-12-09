@@ -1,18 +1,26 @@
 # Project
 
 ## TO-DO (Overall)
-- [ ] Build the setup part
+- [x] Build the setup part
 - [ ] Revise to ensure security
 - [ ] Implement all asynchronous calls
 - [x] Create and connect databas
-- [ ] Add unique portion to the game
+- [x] Add unique portion to the game
 - [ ] (Optional) Make fonts individual by page/location
 - [ ] Comment and clean up code
 - [ ] Finish and submit
 
 ## TO-DO 
 
-
+- [ ] Build out the function to make change to gameinfo based on event
+- [ ] Write function for endgame
+- [ ] Write function to calc points
+- [ ] Write function to have day where player dies, ressurection can happen
+- [ ] Implement changing pace with press of a button
+- [ ] Implement Health and mile change based on weather, terrain, and pace
+- [ ] Write function for win
+- [ ] Remove spacebar listener when event box is show ? or save event box hidden value and load it on load
+- [ ] Function to save score in the database.
 
 ## Setup
 - [x] Implement choose profession with setupController
@@ -40,4 +48,5 @@
 
 ## Custom Portion
 - [ ] Add custom portion to game
-- [x] Custom portion: Undecided
+- [x] Custom portion: Bible event, if player takes bible: able to ressurect dead player on certain day
+    - Meeting God and Devil (.1 percent chance)
