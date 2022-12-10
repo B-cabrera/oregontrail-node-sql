@@ -34,7 +34,7 @@
 
 
 ## Asynch Calls
-- [ ] Build out game and make calls when needed using your built api
+- [x] Build out game and make calls when needed using your built api
 
 
 ## Database
@@ -45,10 +45,10 @@
 - [ ] Create queries to save new top score
 
 ## Rest of the Game
- - [ ] Build out actaully playing the game
+ - [ x Build out actaully playing the game
 
 
 ## Custom Portion
-- [ ] Add custom portion to game
+- [x] Add custom portion to game
 - [x] Custom portion: Bible event, if player takes bible: able to ressurect dead player on certain day
     - Meeting God and Devil (.1 percent chance)
