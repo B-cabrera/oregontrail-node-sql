@@ -15,3 +15,15 @@ exports.getEvent = (req, res) => {
 exports.resetBibleEvent = (req, res) => {
     event.bibleEvent = false;
 }
+
+exports.makeChange = (req, res)=> {
+    // Get change from body of POST
+
+    var change = req.body.change
+
+    var action = event.makeChange(change);
+
+    res.send(action);
+
+
+}

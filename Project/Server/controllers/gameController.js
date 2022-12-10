@@ -94,3 +94,21 @@ exports.setDay = (req, res ) => {
     res.setHeader('Content-Type','text/plain');
     res.send("" + gameData.gameInfo.day);
 }
+
+exports.resetGame = (req, res) => {
+    gameData.gameInfo.refresh();
+
+    res.send("Game is reset!");
+}
+
+exports.addHealth = (req, res) => {
+    gameData.gameInfo.groupHealth.health += req.body.health;
+
+    if (gameData.gameInfo.groupHealth.health > 100)
+        gameData.gameInfo.groupHealth.health = 100;
+    else if (gameData.gameInfo.groupHealth.health <= 0) {
+        gameData.gameInfo.groupHealth.health = 0;
+    }
+
+    res.send("" + gameData.gameInfo.groupHealth.health);
+}

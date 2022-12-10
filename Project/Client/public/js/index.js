@@ -15,7 +15,7 @@ function fading(obj) {
 
 }
 
-
+// Sets variable at the beginning
 function setSetup() {
     if (!sessionStorage.isSetup) {
         sessionStorage.setItem('isSetup', false)

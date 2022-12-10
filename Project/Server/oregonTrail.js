@@ -62,7 +62,8 @@ app.route('/api/gameData')
 .get(gameController.getGameData);
 
 app.route('/api/health')
-.get(gameController.getHealth);
+.get(gameController.getHealth)
+.post(gameController.addHealth);
 
 app.route('/api/terrain')
 .get(gameController.getTerrain);
@@ -77,6 +78,10 @@ app.route('/api/miles')
 app.route('/api/day')
 .get(gameController.addDay)
 .post(gameController.setDay);
+
+app.route('/api/reset')
+.get(gameController.resetGame)
+.get(setupController.resetGame);
 
 // TOP TEN CONTROLLER
 app.route('/api/topTen')
@@ -112,7 +117,8 @@ app.route('/api/player/money')
 
 // EVENT CONTROLLER
 app.route('/api/event/change')
-.get(eventController.getChange);
+.get(eventController.getChange)
+.post(eventController.makeChange);
 
 app.route('/api/event')
 .get(eventController.getEvent);

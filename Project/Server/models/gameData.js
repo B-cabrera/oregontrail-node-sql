@@ -10,6 +10,7 @@ class Player {
         this.status = playerStatus;
         this.profession = playerProfession;
         this.money = cash;
+        this.hasBible = false;
     }
 }
 
@@ -64,12 +65,26 @@ class GameData {
         this.currentTerrain = terrain.Terrain.createTerrainList()[0];
         this.deadList = [];
         this.messages = [];
-
     }
 
     // Method that will traverse through player array and add up money
     calcMoney() {
         return 0;
+    }
+
+    refresh() {
+        this.players = [new Player("a", true, "", 0), new Player("b", true, "", 0), 
+        new Player("c", true, "", 0), new Player("d", true, "", 0), new Player("e", true, "", 0)];
+        this.totalMoney = this.calcMoney();
+        this.startMonth = "";
+        this.miles = 0;
+        this.groupHealth = new GroupHealth(100);
+        this.totalDays = 0;
+        this.currentPace = pace.Pace.createPaceList()[0];
+        this.currentWeather = weather.Weather.createWeatherList()[0];
+        this.currentTerrain = terrain.Terrain.createTerrainList()[0];
+        this.deadList = [];
+        this.messages = [];
     }
 
 }

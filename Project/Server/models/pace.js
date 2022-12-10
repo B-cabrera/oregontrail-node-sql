@@ -13,9 +13,9 @@ class Pace {
     // method creates list of Pace obj's, all for current game
     createPaceList() {
         return [
-            new Pace(0, 'Steady', 50, -1),
-            new Pace(1, 'Strenuous', 30, -3),
-            new Pace(2,'Grueling', 10, -8),
+            new Pace(0, 'Steady', 25, -1),
+            new Pace(1, 'Strenuous', 15, -3),
+            new Pace(2,'Grueling', 5, -8),
             new Pace(3,'Resting', 0, 5)
         ]
     }

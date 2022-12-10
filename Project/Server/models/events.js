@@ -1,6 +1,7 @@
 const weather = require('./weather');
 const terrain = require('./terrain');
 const gameData = require('./gameData');
+const e = require('express');
 
 class Events {
 
@@ -13,7 +14,7 @@ class Events {
 they came across a small cabin in the woods. They decided to take a break and explore the cabin, \
 and as they searched through the debris and debris, they found a tattered old bible. "],
 
-            "birthday": [101, "It is one of your group member's birthday! Get $500."],
+            "birthday": [101, "It is one of your group member's birthday!"],
 
             "broken-leg": [102, "As the group trudged through the muddy Oregon Trail, \
 one member suddenly cried out in pain. They had slipped and fallen,\
@@ -87,16 +88,17 @@ a raging flood, and the travelers struggled to keep their wagons afloat as the w
             6: ["Eat the berries.", 'player-die', "Don't eat the berries.", 'no-effect'],
             7: ["Help the person.", 'gain-miles', "Don't help the person", 'no-effect'],
             8: ["Fight the robbers.", 'gain-money', "Give up your money.", 'lose-money'],
-            9: ["Fight the robbers.", 'player-die, "Give up your money.', 'lose-money'],
+            9: ["Fight the robbers.", 'player-die', "Give up your money.", 'lose-money'],
             10: ["Buy clothes.", 'lose-money', "Don't buy clothes.", 'lose-health'],
             11: ["Swim through the flood.", 'gain-miles', "Stay put and wait it out.", 'no-effect'],
-            12: ["Swim through the flood.", 'player-die', "Stay put and wait it out.", 'add-days'],
+            12: ["Swim through the flood.", 'player-die', "Stay put and wait it out.", 'gain-days'],
             13: ["Walk through it.", 'gain-miles', "Take another way.", 'no-effect'],
             14: ["Walk through it.", 'player-die', "Take another way.", 'no-effect'],
             15: ["Try and tame the horses.", 'gain-miles', "Leave the horses alone", 'no-effect'],
             16: ["Try and tame the horses.", 'player-die', "Leave the horses alone.", 'no-effect'],
 
             // OPTIONS WITH NO CHOICE
+            100: ["no-choice", 'ressurect'],
             101: ["no-choice", 'gain-money'],
             102: ["no-choice", 'player-die'],
             103: ["no-choice", 'lose-health'],
@@ -105,21 +107,6 @@ a raging flood, and the travelers struggled to keep their wagons afloat as the w
             106: ["no-choice", 'reset-miles']
         }
 
-        this.effectDict = {
-            'yes-bible': 555,
-            'no-bible': 666,
-            'gain-miles': Math.floor(Math.random() * 100) + 1, // Gain a random amount of miles
-            'lose-days': Math.floor(Math.random() * (gameData.gameInfo.totalDays / 2)) + 1,
-            'gain-health': 10,
-            'lose-health': 10,
-            'player-die': 'kill',
-            'gain-money': Math.floor(Math.random() * gameData.gameInfo.players[0].money) + 1,
-            'lose-money': Math.floor(Math.random() * gameData.gameInfo.players[0].money) + 1,
-            'add-days': Math.floor(Math.random() * 8) + 1,
-            'no-effect': null,
-            'finish-miles': (500 - gameData.gameInfo.miles),
-            'reset-miles': 0
-        }
     }
 
 
@@ -180,7 +167,6 @@ a raging flood, and the travelers struggled to keep their wagons afloat as the w
     }
 
     getEvent() {
-        console.log("Has bible event happened: " + this.bibleEvent);
         // get death chance for death event   
         var chance = gameData.gameInfo.groupHealth.getDeathChance();
 
@@ -190,15 +176,18 @@ a raging flood, and the travelers struggled to keep their wagons afloat as the w
         if (chance != 0 && randNum < chance) {
             var dead = this.killPlayer();
             if (dead)
-                return[`${dead.name} has died.`]
+                return [`${dead.name} has died.`]
         } else { // no death, return random event.
             var info;
-            var choices;
 
             // if Bible event hasnt happened, return the bible event
             if (!this.bibleEvent) {
                 info = this.eventDict['bible'];
                 this.bibleEvent = true;
+            } else if (gameData.gameInfo.totalDays == 40 && gameData.gameInfo.deadList.length > 0 && gameData.gameInfo.players[0].hasBible) { 
+                // if its day 40 and people have died, and they chose the bible
+                info  = [100, "Because you have chosen faith, the dead can be ressurected!"];
+
             } else {
                 var randNum = Math.random();
 
@@ -210,27 +199,27 @@ a raging flood, and the travelers struggled to keep their wagons afloat as the w
                     newRandNum < 0.5 ? info = this.eventDict['god'] : info = this.eventDict['devil'];
                 } else {
                     // If normal event, get a random event from the rest
-                    var randIndex = Math.floor(Math.random() * Object.keys(this.eventDict).length) + 1;
+                    var randIndex = Math.floor(Math.random() * Object.keys(this.eventDict).length);
 
-                    // Avoid the index that the god and devil events are in
-                    while (randIndex == 14 || randIndex == 15)
-                        randIndex = Math.floor(Math.random() * Object.keys(this.eventDict).length) + 1;
+                    // Avoid the index that the god and devil and the bible events are in
+                    while (randIndex == 14 || randIndex == 15 || randIndex == 0) {
+                        randIndex = Math.floor(Math.random() * Object.keys(this.eventDict).length);
 
+                    }
 
                     info = this.eventDict[Object.keys(this.eventDict)[randIndex]];
                 }
             }
 
 
-            // return the this array [EventPrompt, [EventChoices]]
-            console.log("Info: " + info);
+            // return the this array [EventPrompt, [EventChoices]
             return [info[1], this.choicesDict[info[0]]];
         }
     }
 
 
     killPlayer() {
-        console.log("Killing");
+        
         if (gameData.gameInfo.players.length >= 0) {
             var allPlayers = gameData.gameInfo.players;
             var randomIndex = Math.floor(Math.random() * allPlayers.length);
@@ -244,6 +233,102 @@ a raging flood, and the travelers struggled to keep their wagons afloat as the w
 
         }
         return null;
+    }
+
+    // Make a change to the game off of a choice the user made
+    makeChange(effect) {
+        var effectDict = {
+            'yes-bible': 'yes',
+            'no-bible': 'no',
+            'gain-miles': Math.floor(Math.random() * 20) + 1, // Gain a random amount of miles
+            'lose-days': Math.floor(Math.random() * (gameData.gameInfo.totalDays / 2)) + 1,
+            'gain-health': 10,
+            'lose-health': 10,
+            'player-die': 'kill',
+            'gain-money': Math.floor(Math.random() * gameData.gameInfo.players[0].money) + 1,
+            'lose-money': Math.floor(Math.random() * gameData.gameInfo.players[0].money) + 1,
+            'gain-days': Math.floor(Math.random() * 8) + 1,
+            'no-effect': null,
+            'finish-miles': (500 - gameData.gameInfo.miles),
+            'reset-miles': 0,
+            'ressurect': 'revive' 
+        }
+
+        // get the result of the choice from the event dict
+        var result = effectDict[effect];
+
+        if (result == 'yes') { // player chose yes the bible event
+            gameData.gameInfo.players[0].hasBible = true;
+            return "You have faith!";
+            // we don't do anything if it says 'no' cause hasBible is initally false
+        } else if (result == 'kill') {
+            var deadplayer = this.killPlayer();
+
+            if (deadplayer)
+                return `${deadplayer.name} has died.`
+        } else if (result == 'ressurect') {
+            var revivedPlayer = gameData.gameInfo.deadList.pop();
+            return `${revivedPlayer.name} is revived!`
+        }
+        else {
+            var changeCategories = effect.split("-")
+
+            if (changeCategories[1] == 'miles') {
+                switch (changeCategories[0]) {
+                    case 'gain':
+                        if (gameData.gameInfo.miles + result > 500)
+                            result = 500 - gameData.gameInfo.miles
+                        gameData.gameInfo.miles += result;
+                        return `You gained ${result} miles.`;
+                    case 'finish':
+                        gameData.gameInfo.miles += result;
+                        return `You have finished the trip!`
+                    case `reset`:
+                        gameData.gameInfo.miles = 0;
+                        return 'You have been reset to the beginning of the trip!.'
+
+                }
+            } else if (changeCategories[1] == 'days') {
+                switch (changeCategories[0]) {
+                    case 'lose': // only add to 45
+                        if (gameData.gameInfo.totalDays + result > 45)
+                            result = 45 - gameData.gameInfo.totalDays;
+                        gameData.gameInfo.totalDays += result;
+                        return `You lost ${result} days!`
+                    case 'gain': // only subtract to 0
+                        if (gameData.gameInfo.totalDays - result < 0)
+                            result = gameData.gameInfo.totalDays;
+                        gameData.gameInfo.totalDays -= result;
+                        return `You gained ${result} more days !`
+                }
+            } else if (changeCategories[1] == 'health') {
+                switch (changeCategories[0]) {
+                    case 'gain': // only add to 100
+                        if (gameData.gameInfo.groupHealth.health + result > 100)
+                            result = 100 - gameData.gameInfo.groupHealth.health;
+                        gameData.gameInfo.groupHealth.health += result;
+                        return `You gained ${result} health`
+                    case 'lose': // only subtract 0 
+                        if (gameData.gameInfo.groupHealth.health - result < 0)
+                            result = gameData.gameInfo.groupHealth.health
+                        gameData.gameInfo.groupHealth.health -= result;
+                        return `You lost ${result} health`
+                }
+            } else if (changeCategories[1] == 'money') {
+                switch (changeCategories[0]) {
+                    case 'gain': 
+                        gameData.gameInfo.players[0].money += result;
+                        return `You gained $${result}`;
+                    case 'lose': // only subtract to 0
+                        if (gameData.gameInfo.players[0].money - result < 0)
+                            result = gameData.gameInfo.players[0].money;
+                        gameData.gameInfo.players[0].money -= result;
+                        return `You lost $${result}`;
+                }
+            }
+        }
+
+        return `No change.`;
     }
 }
 

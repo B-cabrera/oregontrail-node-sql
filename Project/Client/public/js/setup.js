@@ -29,6 +29,7 @@ window.addEventListener('load', () => {
     begin();
 })
 
+// Back to main menu listener
 document.body.addEventListener('keyup', () => {
     event.preventDefault();
 
@@ -36,7 +37,7 @@ document.body.addEventListener('keyup', () => {
         window.location = "/mainmenu";
 })
 
-
+// Get the choice for profession
 function chooseChoice(event) {
     event.preventDefault();
 
@@ -64,6 +65,7 @@ function chooseChoice(event) {
         return;
     }
 
+    // if the page is done, send info to server
     if (isPageDone) {
         sessionStorage.setupPhase = 1;
 
@@ -97,16 +99,18 @@ function chooseChoice(event) {
 
 }
 
+// check if entry is all spaces
 function checkForSpaces(text) {
     console.log("Is it all spaces ?" + /^\s*$/.test(text));
     return /^\s*$/.test(text);
 }
 
+// get the name input from the fields
 function getName(event) {
     if (event.key === "Enter") {
 
         // Check for valid input
-        if (!checkForSpaces(document.getElementById("prompt").value)) {
+        if (!checkForSpaces(document.getElementById("prompt").value) && (document.getElementById("prompt").value.length < 10)) {
             sessionStorage.setItem(`Player${pNum}`, document.getElementById("prompt").value.trim());
             document.getElementById("prompt").value = "";
             document.getElementById("inputlabel").textContent = "Name for next group member?:"
@@ -132,12 +136,15 @@ function getName(event) {
 
                 begin();
             }
+        } else {
+            document.getElementById("inputlabel").textContent = "Invalid Name";
         }
 
 
     }
 }
 
+// get start month from fields
 function getStartMonth(event) {
     if (event.key === "Enter") {
         var input = document.getElementById("monthInput").value;
@@ -282,9 +289,9 @@ function begin() {
 
             // Set value isStarted and gamePhase in session storage
             sessionStorage.setItem('gamePhase', 0);
+            
 
             // Remove all unneeded storage
-            sessionStorage.removeItem('Player0');
             sessionStorage.removeItem('Player1');
             sessionStorage.removeItem('Player2');
             sessionStorage.removeItem('Player3');

@@ -2,25 +2,27 @@
 
 ## TO-DO (Overall)
 - [x] Build the setup part
-- [ ] Revise to ensure security
-- [ ] Implement all asynchronous calls
+- [x] Revise to ensure security
+- [x] Implement all asynchronous calls
 - [x] Create and connect databas
 - [x] Add unique portion to the game
-- [ ] (Optional) Make fonts individual by page/location
+- [x] (Optional) Make fonts individual by page/location
 - [ ] Comment and clean up code
 - [ ] Finish and submit
 
 ## TO-DO 
 
-- [ ] Build out the function to make change to gameinfo based on event
-- [ ] Write function for endgame
-- [ ] Write function to calc points
-- [ ] Write function to have day where player dies, ressurection can happen
-- [ ] Implement changing pace with press of a button
-- [ ] Implement Health and mile change based on weather, terrain, and pace
-- [ ] Write function for win
-- [ ] Remove spacebar listener when event box is show ? or save event box hidden value and load it on load
-- [ ] Function to save score in the database.
+- [x] Build out the function to make change to gameinfo based on event
+- [x] Write function for endgame
+- [x] Write function to calc points
+- [x] Write function to have day where player dies, ressurection can happen
+- [x] Implement changing pace with press of a button
+- [x] Implement Health and mile change based on weather, terrain, and pace
+- [x] Write function for win
+- [x] Remove spacebar listener when event box is show ? or save event box hidden value and load it on load
+- [x] Function to save score in the database.
+- [ ] Fix server players list not reseting after tab is closed
+- [x] Write restart game button
 
 ## Setup
 - [x] Implement choose profession with setupController

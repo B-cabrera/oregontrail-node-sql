@@ -9,7 +9,7 @@ window.onload = (event)  => {
 
 
     if (here != "mainmenu" && here != "setup")
-        listenToPressRedirect(body, " ", '/mainmenu');
+        listenToPressRedirect(document, " ", '/mainmenu');
     
 
 }
@@ -33,6 +33,7 @@ function listenToPressRedirect(elem, key, place) {
         event.preventDefault();
         
         if (event.key === key) {
+            console.log('TRIGGEREDG')
             window.location = place;
         }
     });

@@ -52,7 +52,7 @@ exports.setProfession = function (req, res) {
 }
 
 exports.setPlayerMoney = (req, res) => {
-    playerList[0].money = req.body.money;
+    playerList[0].money = parseInt(req.body.money);
     res.setHeader('Content-Type', 'text/plain');
     res.send(playerList[0]);
 }
@@ -72,7 +72,13 @@ exports.getMoney = (req, res) => {
     var cash = playerList[0].money
 
     res.setHeader('Content-Type', 'text/plain')
-    res.send(cash);
+    res.send(""+ cash);
+}
+
+exports.resetGame = (req, res) => {
+    gameData.gameInfo.refresh();
+
+    res.send("Game is reset!");
 }
 
 function playerNames(players) {
