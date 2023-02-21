@@ -8,7 +8,7 @@
 - [x] Add unique portion to the game
 - [x] (Optional) Make fonts individual by page/location
 - [ ] Comment and clean up code
-- [ ] Finish and submit
+- [x] Finish and submit
 
 ## TO-DO 
 
@@ -21,7 +21,7 @@
 - [x] Write function for win
 - [x] Remove spacebar listener when event box is show ? or save event box hidden value and load it on load
 - [x] Function to save score in the database.
-- [ ] Fix server players list not reseting after tab is closed
+- [x] Fix server players list not reseting after tab is closed
 - [x] Write restart game button
 
 ## Setup
@@ -42,10 +42,10 @@
 - [x] Create table for top ten
 - [x] Connect code to database
 - [x] Create queries tp get top scores from database
-- [ ] Create queries to save new top score
+- [x] Create queries to save new top score
 
 ## Rest of the Game
- - [ x Build out actaully playing the game
+ - [x] Build out actaully playing the game
 
 
 ## Custom Portion
